@@ -1,12 +1,13 @@
 package dal.db;
 
 import be.Movie;
+import dal.Interfaces.IMovie;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieDAO {
+public class MovieDAO implements IMovie {
     private Connection con;
 
     public MovieDAO(Connection connection) {
@@ -16,7 +17,7 @@ public class MovieDAO {
     public List<Movie> getMovies() {
         List<Movie> allMovies = new ArrayList<>();
         try {
-            String sqlStatement = "SELECT * FROM [Movie].[dbo].[Movie]";
+            String sqlStatement = "SELECT * FROM [examProjectMMA].[dbo].[Movie]";
             Statement statement = con.createStatement();
             ResultSet rs = statement.executeQuery(sqlStatement);
             while (rs.next()) {
