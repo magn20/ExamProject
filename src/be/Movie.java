@@ -16,6 +16,10 @@ public class Movie {
         this.filelink = filelink;
         this.lastview = lastview;
     }
+
+    public Movie(String title, float personalRating, float imdbRating, String filelink, String lastview) {
+    }
+
     public int getId(){
         return id;
     }
