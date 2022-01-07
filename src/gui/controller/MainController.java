@@ -48,8 +48,8 @@ public class MainController implements Initializable {
      * switches to a rate selection scene.
      * @param actionEvent
      */
-    public void onRateBtn(ActionEvent actionEvent) {
-        //TODO do make a pop up window where you can rate the movie selected
+    public void onRateBtn(ActionEvent actionEvent) throws IOException {
+        sceneSwapper.sceneSwitch(new Stage(), "UserRatingConfig.fxml");
     }
 
     /**

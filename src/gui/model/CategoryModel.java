@@ -8,7 +8,7 @@ import java.util.List;
 
 public class CategoryModel {
 
-    CategoryManager categoryManager;
+    CategoryManager categoryManager = new CategoryManager();
 
     public List<Category> getCategories() {
         return categoryManager.getCategories();
