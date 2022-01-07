@@ -70,4 +70,12 @@ public class MainController implements Initializable {
         sceneSwapper.sceneSwitch(new Stage(), "MovieConfig.fxml");
     }
 
+    /**
+     *  Deletes the chosen category
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void onDeleteBtn(ActionEvent actionEvent) {
+        
+    }
 }
