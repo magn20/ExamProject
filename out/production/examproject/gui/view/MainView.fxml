@@ -11,7 +11,7 @@
    <children>
       <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="510.0" prefWidth="646.0" style="-fx-background-color: pink;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
-            <ComboBox layoutX="22.0" layoutY="14.0" prefHeight="26.0" prefWidth="114.0" promptText="Categories" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="14.0" />
+            <ComboBox fx:id="categoriesDropDown" layoutX="22.0" layoutY="14.0" onAction="#onCategoriesBtn" prefHeight="26.0" prefWidth="114.0" promptText="Categories" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="14.0" />
             <TableView fx:id="tvMovies" layoutX="14.0" layoutY="55.0" prefHeight="432.0" prefWidth="222.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="128.6" AnchorPane.topAnchor="55.0">
               <columns>
                 <TableColumn prefWidth="222.4000244140625" text="Title" />
@@ -19,11 +19,11 @@
                   <TableColumn prefWidth="60.7999267578125" text="IMDB ★" />
               </columns>
             </TableView>
-            <Button layoutX="259.0" layoutY="55.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="70.0" text="Watch" AnchorPane.rightAnchor="35.599999999999994" />
-            <Button layoutX="259.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="70.0" text="info" AnchorPane.rightAnchor="35.599999999999994" />
-            <Button layoutX="259.0" layoutY="95.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="70.0" text="Rate" AnchorPane.rightAnchor="35.599999999999994" />
-            <Button layoutX="145.0" layoutY="467.0" mnemonicParsing="false" onAction="#movieConfigBtn" text="Movie Config" AnchorPane.bottomAnchor="17.399999999999977" AnchorPane.leftAnchor="145.0" />
-            <Button layoutX="22.0" layoutY="467.0" mnemonicParsing="false" text="Category Config" AnchorPane.bottomAnchor="17.4" AnchorPane.leftAnchor="22.0" />
+            <Button layoutX="259.0" layoutY="55.0" mnemonicParsing="false" onAction="#onWatchBtn" prefHeight="26.0" prefWidth="70.0" text="Watch" AnchorPane.rightAnchor="35.599999999999994" />
+            <Button layoutX="259.0" layoutY="14.0" mnemonicParsing="false" onAction="#onInfoBtn" prefHeight="26.0" prefWidth="70.0" text="info" AnchorPane.rightAnchor="35.599999999999994" />
+            <Button layoutX="259.0" layoutY="95.0" mnemonicParsing="false" onAction="#onRateBtn" prefHeight="26.0" prefWidth="70.0" text="Rate" AnchorPane.rightAnchor="35.599999999999994" />
+            <Button layoutX="145.0" layoutY="467.0" mnemonicParsing="false" onAction="#onMovieConfigBtn" text="Movie Config" AnchorPane.bottomAnchor="17.399999999999977" AnchorPane.leftAnchor="145.0" />
+            <Button layoutX="22.0" layoutY="467.0" mnemonicParsing="false" onAction="#onCategoryConfigBtn" text="Category Config" AnchorPane.bottomAnchor="17.4" AnchorPane.leftAnchor="22.0" />
             <TextField layoutX="246.0" layoutY="14.0" prefWidth="114.0" />
          </children>
       </AnchorPane>
