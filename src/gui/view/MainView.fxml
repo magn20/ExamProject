@@ -11,7 +11,7 @@
       <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="510.0" prefWidth="646.0" style="-fx-background-color: gray;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
             <ComboBox layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="222.0" promptText="Categories" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
-            <TableView layoutX="14.0" layoutY="55.0" prefHeight="432.0" prefWidth="222.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="128.6" AnchorPane.topAnchor="55.0">
+            <TableView fx:id="tvMovies" layoutX="14.0" layoutY="55.0" prefHeight="432.0" prefWidth="222.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="128.6" AnchorPane.topAnchor="55.0">
               <columns>
                 <TableColumn prefWidth="75.0" text="Title" />
                 <TableColumn prefWidth="75.0" text="User ★" />
