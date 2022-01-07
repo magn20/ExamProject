@@ -76,6 +76,6 @@ public class MainController implements Initializable {
      * @throws IOException
      */
     public void onDeleteBtn(ActionEvent actionEvent) {
-        
+
     }
 }
