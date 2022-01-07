@@ -30,6 +30,7 @@ public class CategoryDAO implements ICategory {
             throwables.printStackTrace();
         }
         return allCategories;
+
     }
     public Category addCategory(String title) {
         int insertedId = -1;

@@ -11,6 +11,7 @@
    <children>
       <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="510.0" prefWidth="646.0" style="-fx-background-color: pink;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
+            <Button layoutX="145.0" layoutY="14.0" mnemonicParsing="false" onAction="#onDeleteBtn" text="Delete" />
             <ComboBox fx:id="categoriesDropDown" layoutX="22.0" layoutY="14.0" onAction="#onCategoriesBtn" prefHeight="26.0" prefWidth="114.0" promptText="Categories" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="14.0" />
             <TableView fx:id="tvMovies" layoutX="14.0" layoutY="55.0" prefHeight="432.0" prefWidth="222.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="128.6" AnchorPane.topAnchor="55.0">
               <columns>
