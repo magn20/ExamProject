@@ -82,6 +82,10 @@ public class MainController implements Initializable {
      * @param actionEvent
      * @throws IOException
      */
+<<<<<<< HEAD
+    public void onDeleteBtn(ActionEvent actionEvent) {
+
+=======
     public void onDeleteBtn(ActionEvent actionEvent) throws SQLException {
 
         System.out.println(categoriesDropDown.getSelectionModel().getSelectedItem());
@@ -91,5 +95,6 @@ public class MainController implements Initializable {
             }
         }
         categoriesDropDown.getItems().remove(categoriesDropDown.getSelectionModel().getSelectedItem());
+>>>>>>> 7537b8e5540c03c834c02db4d4fc53e71be2779c
     }
 }
