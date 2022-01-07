@@ -1,7 +1,11 @@
 package gui.controller;
 
 import be.Category;
+import be.Movie;
+import bll.MovieManager;
+import dal.db.MovieDAO;
 import gui.model.CategoryModel;
+import gui.model.MovieModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -14,6 +18,8 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class MovieController implements Initializable {
@@ -21,11 +27,14 @@ public class MovieController implements Initializable {
     public ComboBox catDropDown;
     public TextField lblUrlText;
     public AnchorPane anchorPane;
+    public TextField lblIMDBRating;
     private File file;
     final FileChooser fileChooser;
+    private CategoryModel categoryModel;
 
     public MovieController(){
         fileChooser = new FileChooser();
+        categoryModel = new CategoryModel();
     }
 
     public void onChooseBtn(ActionEvent actionEvent) {
@@ -40,7 +49,10 @@ public class MovieController implements Initializable {
         }
 
     public void onSaveBtn(ActionEvent actionEvent) {
-
+        MovieModel movieModel = new MovieModel();
+        Date today = Calendar.getInstance().getTime();
+       movieModel.createMovie("hello", 10, 10, "fie", "2023");
+        //movieModel.createMovie(lblMovieTitle.getText(), 0, 0, lblUrlText.toString(),today.toString());
         closeStage();
     }
 
@@ -58,7 +70,7 @@ public class MovieController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        CategoryModel categoryModel = new CategoryModel();
+
         for(Category category : categoryModel.getCategories()) {
             catDropDown.getItems().add(category.getTitle());
         }

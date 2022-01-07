@@ -18,6 +18,12 @@ public class Movie {
     }
 
     public Movie(String title, float personalRating, float imdbRating, String filelink, String lastview) {
+        this.id = id;
+        this.title = title;
+        this.personalRating = personalRating;
+        this.imdbRating = imdbRating;
+        this.filelink = filelink;
+        this.lastview = lastview;
     }
 
     public int getId(){

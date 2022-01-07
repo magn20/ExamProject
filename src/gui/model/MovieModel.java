@@ -8,12 +8,18 @@ import java.util.List;
 public class MovieModel {
 MovieManager movieManager;
 
+    public MovieModel(){
+        movieManager = new MovieManager();
+    }
+
     public List<Movie> getMovies() {
         return movieManager.getMovies();
     }
 
     public Movie createMovie(String title, float personalRating, float imdbRating, String filelink, String lastview) {
-        return movieManager.createMovie(new Movie(title,personalRating,imdbRating,filelink,lastview));
+        Movie movie = new Movie(title, personalRating, imdbRating, filelink,lastview);
+        return movieManager.createMovie(movie);
+
     }
 
     public void updateMovie(Movie movie) throws Exception {
