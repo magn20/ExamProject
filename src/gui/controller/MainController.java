@@ -1,22 +1,29 @@
 package gui.controller;
 
+import be.Category;
+import gui.model.CategoryModel;
 import gui.util.SceneSwapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
     public TableView tvMovies;
+    public ComboBox categoriesDropDown;
     SceneSwapper sceneSwapper = new SceneSwapper();
+    CategoryModel categoryModel = new CategoryModel();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        for(Category category : categoryModel.getCategories()) {
+            categoriesDropDown.getItems().add(category.getTitle());
+        }
     }
 
 
@@ -25,7 +32,7 @@ public class MainController implements Initializable {
      * @param actionEvent
      */
     public void onCategoriesBtn(ActionEvent actionEvent)  {
-
+     //TODO
     }
 
     /**
@@ -75,7 +82,19 @@ public class MainController implements Initializable {
      * @param actionEvent
      * @throws IOException
      */
+<<<<<<< HEAD
     public void onDeleteBtn(ActionEvent actionEvent) {
 
+=======
+    public void onDeleteBtn(ActionEvent actionEvent) throws SQLException {
+
+        System.out.println(categoriesDropDown.getSelectionModel().getSelectedItem());
+        for(Category category : categoryModel.getCategories()){
+            if(category.getTitle().equals(categoriesDropDown.getSelectionModel().getSelectedItem())){
+                categoryModel.deleteCategory(category);
+            }
+        }
+        categoriesDropDown.getItems().remove(categoriesDropDown.getSelectionModel().getSelectedItem());
+>>>>>>> 7537b8e5540c03c834c02db4d4fc53e71be2779c
     }
 }

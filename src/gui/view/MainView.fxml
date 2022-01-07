@@ -7,10 +7,11 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="530.0" prefWidth="512.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.MainController">
+<AnchorPane prefHeight="530.0" prefWidth="512.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.MainController">
    <children>
       <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="510.0" prefWidth="646.0" style="-fx-background-color: pink;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
+            <Button layoutX="145.0" layoutY="14.0" mnemonicParsing="false" onAction="#onDeleteBtn" text="Delete" />
             <ComboBox fx:id="categoriesDropDown" layoutX="22.0" layoutY="14.0" onAction="#onCategoriesBtn" prefHeight="26.0" prefWidth="114.0" promptText="Categories" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="14.0" />
             <TableView fx:id="tvMovies" layoutX="14.0" layoutY="55.0" prefHeight="432.0" prefWidth="222.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="128.6" AnchorPane.topAnchor="55.0">
               <columns>
@@ -25,7 +26,6 @@
             <Button layoutX="145.0" layoutY="467.0" mnemonicParsing="false" onAction="#onMovieConfigBtn" text="Movie Config" AnchorPane.bottomAnchor="17.399999999999977" AnchorPane.leftAnchor="145.0" />
             <Button layoutX="22.0" layoutY="467.0" mnemonicParsing="false" onAction="#onCategoryConfigBtn" text="Category Config" AnchorPane.bottomAnchor="17.4" AnchorPane.leftAnchor="22.0" />
             <TextField layoutX="246.0" layoutY="14.0" prefWidth="114.0" />
-            <Button layoutX="145.0" layoutY="14.0" mnemonicParsing="false" onAction="#onDeleteBtn" text="Delete" />
          </children>
       </AnchorPane>
    </children>
