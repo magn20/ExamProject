@@ -15,6 +15,7 @@ public class CatMovieDAO {
         con = connection;
 
     }
+
     public void removeMovieFromCategory(Movie movie, Category category) throws SQLException {
 
             String sql = "DELETE FROM CatMovie WHERE movieId = (?) AND categoryId = (?);";

@@ -16,8 +16,7 @@ MovieManager movieManager;
         return movieManager.getMovies();
     }
 
-    public Movie createMovie(String title, float personalRating, float imdbRating, String filelink, String lastview) {
-        Movie movie = new Movie(title, personalRating, imdbRating, filelink,lastview);
+    public Movie createMovie(Movie movie) {
         return movieManager.createMovie(movie);
 
     }

@@ -11,6 +11,9 @@ public class CatMovieModel {
 
     CatMovieManager catMovieManager;
 
+    public  CatMovieModel(){
+        catMovieManager = new CatMovieManager();
+    }
     public void removeMovieFromCategory(Movie movie, Category category) throws SQLException {
         catMovieManager.removeMovieFromCategory(movie,category);
     }

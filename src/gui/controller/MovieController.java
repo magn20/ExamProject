@@ -3,7 +3,9 @@ package gui.controller;
 import be.Category;
 import be.Movie;
 import bll.MovieManager;
+import dal.db.CatMovieDAO;
 import dal.db.MovieDAO;
+import gui.model.CatMovieModel;
 import gui.model.CategoryModel;
 import gui.model.MovieModel;
 import javafx.event.ActionEvent;
@@ -18,6 +20,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -31,10 +34,12 @@ public class MovieController implements Initializable {
     private File file;
     final FileChooser fileChooser;
     private CategoryModel categoryModel;
+    private  CatMovieModel catMovieModel;
 
     public MovieController(){
         fileChooser = new FileChooser();
         categoryModel = new CategoryModel();
+        catMovieModel = new CatMovieModel();
     }
 
     public void onChooseBtn(ActionEvent actionEvent) {
@@ -49,11 +54,18 @@ public class MovieController implements Initializable {
         }
 
         //TODO NEEDS TO CHANGE THE LASTVIEW IN DATABASE INTO NVARCHAR
-    public void onSaveBtn(ActionEvent actionEvent) {
+    public void onSaveBtn(ActionEvent actionEvent) throws SQLException {
         MovieModel movieModel = new MovieModel();
         Date today = Calendar.getInstance().getTime();
         // will work when we made the change above.
-        movieModel.createMovie(lblMovieTitle.getText(), 0,Float.parseFloat(lblIMDBRating.getText()), lblUrlText.toString(),today.toString());
+        Movie movie = new Movie(lblMovieTitle.getText(), 0,Float.parseFloat(lblIMDBRating.getText()), lblUrlText.toString(),today.toString(), catDropDown.getSelectionModel().getSelectedItem().toString());
+        movieModel.createMovie(movie);
+
+        for(Category category : categoryModel.getCategories()){
+            if(category.getTitle().equals(catDropDown.getSelectionModel().getSelectedItem().toString())){
+                catMovieModel.addMovieToCategory(movie, category);
+            }
+        }
         closeStage();
     }
 

@@ -13,11 +13,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-import javax.security.auth.callback.Callback;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -28,6 +26,7 @@ public class MainController implements Initializable {
     public TableColumn<Movie, Float> tcIMDBRating;
     public TableColumn<Movie, Float> tcUserRating;
     public TableColumn<Movie, String> tcTitle;
+    public TableColumn<Category, String> tcCategory;
 
 
     SceneSwapper sceneSwapper = new SceneSwapper();
@@ -52,7 +51,7 @@ public class MainController implements Initializable {
         tcTitle.setCellValueFactory(new PropertyValueFactory<Movie, String>("Title"));
         tcUserRating.setCellValueFactory(new PropertyValueFactory<Movie, Float>("personalRating"));
         tcIMDBRating.setCellValueFactory(new PropertyValueFactory<Movie, Float>("imdbRating"));
-
+        tcCategory.setCellValueFactory(new PropertyValueFactory<Category, String>("Title"));
         tvMovies.setItems(getMovies());
     }
 

@@ -7,6 +7,7 @@ public class Movie {
     private float imdbRating;
     private String filelink;
     private String lastview;
+    private String categories;
 
     public Movie(int id, String title, float personalRating, float imdbRating, String filelink, String lastview) {
         this.id = id;
@@ -17,8 +18,9 @@ public class Movie {
         this.lastview = lastview;
     }
 
-    public Movie(String title, float personalRating, float imdbRating, String filelink, String lastview) {
+    public Movie(String title, float personalRating, float imdbRating, String filelink, String lastview, String categories) {
         this.id = id;
+        this.categories = categories;
         this.title = title;
         this.personalRating = personalRating;
         this.imdbRating = imdbRating;

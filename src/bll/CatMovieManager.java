@@ -2,14 +2,28 @@ package bll;
 
 import be.Category;
 import be.Movie;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.db.CatMovieDAO;
+import dal.db.CategoryDAO;
+import dal.db.DatabaseConnector;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
 public class CatMovieManager {
 
     CatMovieDAO catMovieDAO;
+
+    private DatabaseConnector connector;
+    {
+        try {
+            connector = new DatabaseConnector();
+            catMovieDAO = new CatMovieDAO(connector.getConnection());
+        } catch (SQLServerException | IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void removeMovieFromCategory(Movie movie, Category category) throws SQLException {
         catMovieDAO.removeMovieFromCategory(movie,category);
