@@ -6,6 +6,7 @@ import gui.ExamProject;
 import gui.model.MovieModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -16,6 +17,7 @@ import java.util.ResourceBundle;
 public class UserRatingController implements Initializable {
     public ComboBox dropDownRating;
     public AnchorPane anchorPane;
+    public Button btnClose;
     MovieModel movieModel;
 
     public void onDropAction(ActionEvent actionEvent) {
@@ -26,7 +28,7 @@ public class UserRatingController implements Initializable {
         MainController mainController = new ExamProject().getController();
         mainController.getSelectedMovie().setPersonalRating(Float.parseFloat(dropDownRating.getSelectionModel().getSelectedItem().toString()));
         movieModel.updateMovie(mainController.getSelectedMovie());
-
+        closeStage();
     }
 
     public void onCloseBtn(ActionEvent actionEvent) {
@@ -37,7 +39,7 @@ public class UserRatingController implements Initializable {
      * closess the stage.
      */
     public void closeStage(){
-        Stage stage = (Stage) anchorPane.getScene().getWindow();
+        Stage stage = (Stage) btnClose.getScene().getWindow();
         stage.close();
     }
 

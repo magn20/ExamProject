@@ -58,6 +58,7 @@ public class MovieController implements Initializable {
     }
 
     public void onCloseBtn(ActionEvent actionEvent) {
+
         closeStage();
     }
 
