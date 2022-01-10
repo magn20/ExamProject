@@ -32,9 +32,29 @@ public class Movie {
     public String getTitle(){
         return title;
     }
+    public void setTitle(String title) {
+        this.title = title;
+    }
     public float getPersonalRating(){
         return  personalRating;
     }
+
+    public void setPersonalRating(float personalRating) {
+        this.personalRating = personalRating;
+    }
+
+    public void setImdbRating(float imdbRating) {
+        this.imdbRating = imdbRating;
+    }
+
+    public void setFilelink(String filelink) {
+        this.filelink = filelink;
+    }
+
+    public void setLastview(String lastview) {
+        this.lastview = lastview;
+    }
+
     public float getImdbRating (){
         return imdbRating;
     }

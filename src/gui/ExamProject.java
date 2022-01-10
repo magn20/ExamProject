@@ -1,3 +1,6 @@
+package gui;
+
+import gui.controller.MainController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,18 +11,23 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ExamProject extends Application {
+    private static FXMLLoader fxmlLoadermain;
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("./gui/view/MainView.fxml"));
+        fxmlLoadermain = new FXMLLoader(getClass().getResource("./view/MainView.fxml"));
         primaryStage.centerOnScreen();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(fxmlLoadermain.load());
         primaryStage.setScene(scene);
-        primaryStage.setTitle("ExamProject");
+        primaryStage.setTitle("gui.ExamProject");
         Image image = new Image("gui/Images/icon.png");
         primaryStage.getIcons().add(image);
         primaryStage.show();
     }
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public MainController getController() {
+        return fxmlLoadermain.getController();
     }
 }

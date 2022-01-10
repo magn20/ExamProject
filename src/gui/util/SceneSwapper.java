@@ -24,7 +24,7 @@ public class SceneSwapper {
             Parent scene = FXMLLoader.load(url);
 
                 Scene ViewScene = new Scene(scene);
-                stage.setTitle("ExamProject");
+                stage.setTitle("gui.ExamProject");
                 Image image = new Image("/gui/Images/icon.png");
                 stage.getIcons().add(image);
                 stage.setScene(ViewScene);

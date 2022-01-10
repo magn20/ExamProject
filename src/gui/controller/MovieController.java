@@ -52,9 +52,8 @@ public class MovieController implements Initializable {
     public void onSaveBtn(ActionEvent actionEvent) {
         MovieModel movieModel = new MovieModel();
         Date today = Calendar.getInstance().getTime();
-        movieModel.createMovie("hello", 10, 10, "fie", "2023");
         // will work when we made the change above.
-        //movieModel.createMovie(lblMovieTitle.getText(), 0,Float.parseFloat(lblIMDBRating.getText()), lblUrlText.toString(),today.toString());
+        movieModel.createMovie(lblMovieTitle.getText(), 0,Float.parseFloat(lblIMDBRating.getText()), lblUrlText.toString(),today.toString());
         closeStage();
     }
 

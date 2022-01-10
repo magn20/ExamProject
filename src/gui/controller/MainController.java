@@ -129,4 +129,7 @@ public class MainController implements Initializable {
         }
         categoriesDropDown.getItems().remove(categoriesDropDown.getSelectionModel().getSelectedItem());
     }
+    public Movie getSelectedMovie(){
+       return tvMovies.getSelectionModel().getSelectedItem();
+    }
 }
