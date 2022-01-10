@@ -45,7 +45,7 @@ public class MainController implements Initializable {
 
         tvMovies.setItems(getMovies());
 
-        // initializing the Categories, could have been done on a better way who cares tbh.
+        // initializing the Categories, could have been done on a better way who cares tbh. (just seems so hard to find out how)
         for(Category category : categoryModel.getCategories()) {
             categoriesDropDown.getItems().add(category.getTitle());
         }
