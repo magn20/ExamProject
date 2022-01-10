@@ -1,30 +1,65 @@
 package gui.controller;
 
 import be.Category;
+import be.Movie;
 import gui.model.CategoryModel;
+import gui.model.MovieModel;
 import gui.util.SceneSwapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
+import javax.security.auth.callback.Callback;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-    public TableView tvMovies;
-    public ComboBox categoriesDropDown;
+    public TableView<Movie> tvMovies;
+    public ComboBox<String> categoriesDropDown;
+
+    // tablecolum for table for movies.
+    public TableColumn<Movie, Float> tcIMDBRating;
+    public TableColumn<Movie, Float> tcUserRating;
+    public TableColumn<Movie, String> tcTitle;
+
+
     SceneSwapper sceneSwapper = new SceneSwapper();
     CategoryModel categoryModel = new CategoryModel();
+    MovieModel movieModel = new MovieModel();
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        // initializing the Table Collum
+        tcTitle.setCellValueFactory(new PropertyValueFactory<Movie, String>("Title"));
+        tcUserRating.setCellValueFactory(new PropertyValueFactory<Movie, Float>("personalRating"));
+        tcIMDBRating.setCellValueFactory(new PropertyValueFactory<Movie, Float>("imdbRating"));
+
+        tvMovies.setItems(getMovies());
+
+        // initializing the Categories, could have been done on a better way who cares tbh.
         for(Category category : categoryModel.getCategories()) {
             categoriesDropDown.getItems().add(category.getTitle());
         }
+    }
 
+
+    /**
+     * creates and ruturn observablelist from list off all movies.
+     * @return an observablelist of all movies.
+     */
+    public ObservableList<Movie> getMovies(){
+        ObservableList<Movie> movies = FXCollections.observableArrayList();
+        movies.addAll(movieModel.getMovies());
+        return movies;
     }
 
 

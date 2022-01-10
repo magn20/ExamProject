@@ -15,9 +15,9 @@
             <ComboBox fx:id="categoriesDropDown" layoutX="22.0" layoutY="14.0" onAction="#onCategoriesBtn" prefHeight="26.0" prefWidth="114.0" promptText="Categories" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="14.0" />
             <TableView fx:id="tvMovies" layoutX="14.0" layoutY="55.0" prefHeight="432.0" prefWidth="222.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="128.6" AnchorPane.topAnchor="55.0">
               <columns>
-                <TableColumn prefWidth="222.4000244140625" text="Title" />
-                <TableColumn prefWidth="66.39996337890625" text="User ★" />
-                  <TableColumn prefWidth="60.7999267578125" text="IMDB ★" />
+                <TableColumn fx:id="tcTitle" prefWidth="222.4000244140625" text="Title" />
+                <TableColumn fx:id="tcUserRating" prefWidth="66.39996337890625" text="User ★" />
+                  <TableColumn fx:id="tcIMDBRating" prefWidth="60.7999267578125" text="IMDB ★" />
               </columns>
             </TableView>
             <Button layoutX="259.0" layoutY="55.0" mnemonicParsing="false" onAction="#onWatchBtn" prefHeight="26.0" prefWidth="70.0" text="Watch" AnchorPane.rightAnchor="35.599999999999994" />
