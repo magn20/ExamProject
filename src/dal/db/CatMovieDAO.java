@@ -26,23 +26,15 @@ public class CatMovieDAO {
             preparedStatement.executeUpdate();
     }
 
-    public CatMovie addMovieToCategory(Movie movie, Category category) throws SQLException {
+    public void addMovieToCategory(Movie movie, Category category) throws SQLException {
 
-        int insertedId = -1;
-        try{
+
             String sql = "INSERT INTO CatMovie VALUES (?,?);";
             PreparedStatement preparedStatement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, category.getId());
             preparedStatement.setInt(2, movie.getId());
             preparedStatement.executeUpdate();
 
-            ResultSet rs =preparedStatement.getGeneratedKeys();
-            rs.next();
-            insertedId = rs.getInt(1);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return new CatMovie(insertedId, movie.getId(), category.getId());
     }
     public List<Movie> getMoviesFromCategory(int categoryId) throws SQLException {
         List<Movie> moviesInCategory = new ArrayList<>();

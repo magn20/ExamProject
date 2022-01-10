@@ -53,7 +53,6 @@ public class MovieController implements Initializable {
             };
         }
 
-        //TODO NEEDS TO CHANGE THE LASTVIEW IN DATABASE INTO NVARCHAR
     public void onSaveBtn(ActionEvent actionEvent) throws SQLException {
         MovieModel movieModel = new MovieModel();
         Date today = Calendar.getInstance().getTime();
