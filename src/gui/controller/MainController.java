@@ -38,12 +38,7 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        // initializing the Table Collum
-        tcTitle.setCellValueFactory(new PropertyValueFactory<Movie, String>("Title"));
-        tcUserRating.setCellValueFactory(new PropertyValueFactory<Movie, Float>("personalRating"));
-        tcIMDBRating.setCellValueFactory(new PropertyValueFactory<Movie, Float>("imdbRating"));
-
-        tvMovies.setItems(getMovies());
+        fillTableview();
 
         // initializing the Categories, could have been done on a better way who cares tbh. (just seems so hard to find out how)
         for(Category category : categoryModel.getCategories()) {
@@ -51,6 +46,15 @@ public class MainController implements Initializable {
         }
     }
 
+    public void fillTableview(){
+
+        // initializing the Table Collum
+        tcTitle.setCellValueFactory(new PropertyValueFactory<Movie, String>("Title"));
+        tcUserRating.setCellValueFactory(new PropertyValueFactory<Movie, Float>("personalRating"));
+        tcIMDBRating.setCellValueFactory(new PropertyValueFactory<Movie, Float>("imdbRating"));
+
+        tvMovies.setItems(getMovies());
+    }
 
     /**
      * creates and ruturn observablelist from list off all movies.

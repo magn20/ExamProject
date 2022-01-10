@@ -28,6 +28,7 @@ public class UserRatingController implements Initializable {
         MainController mainController = new ExamProject().getController();
         mainController.getSelectedMovie().setPersonalRating(Float.parseFloat(dropDownRating.getSelectionModel().getSelectedItem().toString()));
         movieModel.updateMovie(mainController.getSelectedMovie());
+        mainController.fillTableview();
         closeStage();
     }
 
