@@ -19,7 +19,6 @@ public class Movie {
     }
 
     public Movie(String title, float personalRating, float imdbRating, String filelink, String lastview, String categories) {
-        this.id = id;
         this.categories = categories;
         this.title = title;
         this.personalRating = personalRating;

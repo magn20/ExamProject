@@ -51,7 +51,7 @@ public class MainController implements Initializable {
         tcTitle.setCellValueFactory(new PropertyValueFactory<Movie, String>("Title"));
         tcUserRating.setCellValueFactory(new PropertyValueFactory<Movie, Float>("personalRating"));
         tcIMDBRating.setCellValueFactory(new PropertyValueFactory<Movie, Float>("imdbRating"));
-        tcCategory.setCellValueFactory(new PropertyValueFactory<Category, String>("Title"));
+        tcCategory.setCellValueFactory(new PropertyValueFactory<Category, String>("Title")); //TODO change this do Category when fixed SQL Statement.
         tvMovies.setItems(getMovies());
     }
 

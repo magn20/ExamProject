@@ -27,10 +27,10 @@ public class CatMovieDAO {
 
     public void addMovieToCategory(Movie movie, Category category) throws SQLException {
 
-            String sql = "INSERT INTO CatMovie VALUES (?,?);";
+            String sql = "INSERT INTO CatMovie VALUES (?,?,?);";
             PreparedStatement preparedStatement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setInt(1, movie.getId());
-            preparedStatement.setInt(2, category.getId());
+            preparedStatement.setInt(1, category.getId());
+            preparedStatement.setInt(2, movie.getId());
             preparedStatement.executeUpdate();
     }
     public List<Movie> getMoviesFromCategory(int categoryId) throws SQLException {
