@@ -169,4 +169,8 @@ public class MainController implements Initializable {
     public Movie getSelectedMovie(){
        return tvMovies.getSelectionModel().getSelectedItem();
     }
+
+    public void onAddCategory(ActionEvent actionEvent) throws IOException {
+        sceneSwapper.sceneSwitch(new Stage(), "AddCategoryConfig.fxml");
+    }
 }
