@@ -31,6 +31,8 @@ public class CatMovieDAO {
 
             String sql = "INSERT INTO CatMovie VALUES (?,?);";
             PreparedStatement preparedStatement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        System.out.println(category.getId());
+        System.out.println(movie.getId());
             preparedStatement.setInt(1, category.getId());
             preparedStatement.setInt(2, movie.getId());
             preparedStatement.executeUpdate();

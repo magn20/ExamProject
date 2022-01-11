@@ -36,8 +36,8 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         fillTableview();
+
 
         // initializing the Categories, could have been done on a better way who cares tbh. (just seems so hard to find out how)
         for(Category category : categoryModel.getCategories()) {

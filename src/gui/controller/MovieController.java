@@ -5,6 +5,7 @@ import be.Movie;
 import bll.MovieManager;
 import dal.db.CatMovieDAO;
 import dal.db.MovieDAO;
+import gui.ExamProject;
 import gui.model.CatMovieModel;
 import gui.model.CategoryModel;
 import gui.model.MovieModel;
@@ -58,13 +59,17 @@ public class MovieController implements Initializable {
         Date today = Calendar.getInstance().getTime();
         // will work when we made the change above.
         Movie movie = new Movie(lblMovieTitle.getText(), 0,Float.parseFloat(lblIMDBRating.getText()), lblUrlText.toString(),today.toString(), catDropDown.getSelectionModel().getSelectedItem().toString());
+        movie.setId(movieModel.getMovies().get(movieModel.getMovies().size() - 1).getId() + 1);
         movieModel.createMovie(movie);
 
-            for(Category category : categoryModel.getCategories()){
-             if(category.getTitle().equals(catDropDown.getSelectionModel().getSelectedItem().toString())){
-            catMovieModel.addMovieToCategory(movie, category);
-            }
-            }
+         for(Category category : categoryModel.getCategories()) {
+             if (category.getTitle().equals(catDropDown.getSelectionModel().getSelectedItem().toString())) {
+                 catMovieModel.addMovieToCategory(movie, category);
+             }
+         }
+
+        MainController mainController = new ExamProject().getController();
+        mainController.fillTableview();
 
         closeStage();
     }
