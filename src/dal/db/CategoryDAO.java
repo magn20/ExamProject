@@ -32,6 +32,12 @@ public class CategoryDAO implements ICategory {
         return allCategories;
 
     }
+
+    /**
+     * adds a category to the database
+     * @param title the name of the category
+     * @return the category object that was created.
+     */
     public Category addCategory(String title) {
         int insertedId = -1;
         try {
@@ -49,6 +55,12 @@ public class CategoryDAO implements ICategory {
         return category;
 
     }
+
+    /**
+     * used for updating the category name.
+     * @param category category object that should be updated.
+     * @throws SQLException
+     */
     public void updateCategory(Category category) throws SQLException {
 
             String sql = "UPDATE Category SET title=? WHERE Id=?;";
@@ -63,6 +75,12 @@ public class CategoryDAO implements ICategory {
             }
 
     }
+
+    /**
+     * removes a category from the database
+     * @param category object that should be removed from the database.
+     * @throws SQLException
+     */
     public void deleteCategory(Category category) throws SQLException {
 
             String sql = "DELETE FROM Category WHERE Id=?;";

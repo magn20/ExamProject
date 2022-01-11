@@ -14,6 +14,10 @@ public class MovieDAO implements IMovie {
         con = connection;
     }
 
+    /**
+     *  gives a list of all movies in database.
+     * @return all the movies from the database.
+     */
     public List<Movie> getMovies() {
         List<Movie> allMovies = new ArrayList<>();
         try {
@@ -39,6 +43,16 @@ public class MovieDAO implements IMovie {
         }
         return allMovies;
     }
+
+    /**
+     * creates a movie in the database.
+     * @param title the title of the movie.
+     * @param personalRating users own rating of the movie.
+     * @param imdbRating imdbRating from imdb website.
+     * @param filelink the path to the movie on users computer.
+     * @param lastview last date the movies was looked at.
+     * @return
+     */
     public Movie createMovie(String title, Float personalRating, Float imdbRating, String filelink, String lastview) {
 
         int insertedId = -1;
@@ -60,6 +74,11 @@ public class MovieDAO implements IMovie {
         return new Movie(insertedId, title,personalRating , imdbRating, filelink, lastview);
     }
 
+    /**
+     * updates the movie information in the database.
+     * @param movie movie object that needs to be updated.
+     * @throws Exception
+     */
     public void updateMovie(Movie movie) throws Exception {
 
             String sql = "UPDATE Movie SET title = ?, personalRating=?, imdbRating=?, filelink=?, lastview=? WHERE Id=?;";
@@ -77,6 +96,12 @@ public class MovieDAO implements IMovie {
             }
 
         }
+
+    /**
+     * deletes a movie in the database.
+     * @param movieDelete movie object that we want to delete from database.
+     * @return
+     */
     public boolean deleteMovie(Movie movieDelete) {
         try{
             String sqlStatement = "DELETE FROM Movie WHERE id=?";

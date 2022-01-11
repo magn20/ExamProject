@@ -22,18 +22,23 @@ public class MainController implements Initializable {
     public TableView<Movie> tvMovies;
     public ComboBox<String> categoriesDropDown;
 
-    // tablecolum for table for movies.
+    // tablecolumn for table for movies.
     public TableColumn<Movie, Float> tcIMDBRating;
     public TableColumn<Movie, Float> tcUserRating;
     public TableColumn<Movie, String> tcTitle;
-    public TableColumn<Category, String> tcCategory;
+    public TableColumn<Movie, String> tcCategory;
 
-
+    // creating instances of classes.
     SceneSwapper sceneSwapper = new SceneSwapper();
     CategoryModel categoryModel = new CategoryModel();
     MovieModel movieModel = new MovieModel();
 
 
+    /**
+     * to initialize our stage so all the data is displayed.
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         fillTableview();
@@ -45,18 +50,19 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * fills the tableview with all the movie information.
+     */
     public void fillTableview(){
-
-        // initializing the Table Collum
         tcTitle.setCellValueFactory(new PropertyValueFactory<Movie, String>("Title"));
         tcUserRating.setCellValueFactory(new PropertyValueFactory<Movie, Float>("personalRating"));
         tcIMDBRating.setCellValueFactory(new PropertyValueFactory<Movie, Float>("imdbRating"));
-        tcCategory.setCellValueFactory(new PropertyValueFactory<Category, String>("Title")); //TODO change this do Category when fixed SQL Statement.
+        tcCategory.setCellValueFactory(new PropertyValueFactory<Movie, String>("categories")); //TODO change this do Category when fixed SQL Statement.
         tvMovies.setItems(getMovies());
     }
 
     /**
-     * creates and ruturn observablelist from list off all movies.
+     * creates and return observablelist from list off all movies.
      * @return an observablelist of all movies.
      */
     public ObservableList<Movie> getMovies(){
@@ -67,7 +73,7 @@ public class MainController implements Initializable {
 
 
     /**
-     * the category that is selected.
+     * the category that is selected. ()really not used.
      * @param actionEvent
      */
     public void onCategoriesBtn(ActionEvent actionEvent)  {
@@ -121,7 +127,6 @@ public class MainController implements Initializable {
      * @param actionEvent
      * @throws IOException
      */
-
     public void onDeleteBtn(ActionEvent actionEvent) throws SQLException {
 
         System.out.println(categoriesDropDown.getSelectionModel().getSelectedItem());
@@ -132,6 +137,11 @@ public class MainController implements Initializable {
         }
         categoriesDropDown.getItems().remove(categoriesDropDown.getSelectionModel().getSelectedItem());
     }
+
+    /**
+     *
+     * @return the selected movie object in our tableview.
+     */
     public Movie getSelectedMovie(){
        return tvMovies.getSelectionModel().getSelectedItem();
     }

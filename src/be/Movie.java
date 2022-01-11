@@ -40,6 +40,14 @@ public class Movie {
         return  personalRating;
     }
 
+    public void setCategories(String categories) {
+        this.categories = categories;
+    }
+
+    public String getCategories() {
+        return categories;
+    }
+
     public void setPersonalRating(float personalRating) {
         this.personalRating = personalRating;
     }

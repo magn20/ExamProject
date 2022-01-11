@@ -35,62 +35,105 @@ public class MovieController implements Initializable {
     private File file;
     final FileChooser fileChooser;
     private CategoryModel categoryModel;
-    private  CatMovieModel catMovieModel;
+    private CatMovieModel catMovieModel;
 
-    public MovieController(){
+
+    /**
+     * the constructor for the MovieController class, used for creating instances for the different classes.
+     */
+    public MovieController() {
         fileChooser = new FileChooser();
         categoryModel = new CategoryModel();
         catMovieModel = new CatMovieModel();
     }
 
+    /**
+     * gives user option to choose a file they want to use for program.
+     * will put the url of the file location on users pc into the url label.
+     *
+     * @param actionEvent runs when an action is performed on the button.
+     */
     public void onChooseBtn(ActionEvent actionEvent) {
-        Stage stage = (Stage) anchorPane.getScene().getWindow();
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Movie files", "*.mp4", "*.wave"));
+        Stage stage = (Stage) anchorPane.getScene().getWindow(); // get stage.
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Movie files", "*.mp4", "*.wave")); //TODO CHANGE that <---
         file = fileChooser.showOpenDialog(stage); // assigns the chosen file to the file
         fileChooser.setInitialDirectory(file.getParentFile()); //sets the initial file when the fileChooser is opened to the last known directory
 
-        if(file != null){ //DirectoryChooser returns null if the user closes the browse window
+        if (file != null) { //DirectoryChooser returns null if the user closes the browse window
             lblUrlText.setText(file.getAbsolutePath().replace("\\", "/"));
-            };
+        }
+        ;
+    }
+
+    /**
+     * handles the creating of the movie and added a category to it and saves it. and displays the change affected in maincontroller
+     * <p>
+     * (maybe method needs to have less function.)
+     *
+     * @param actionEvent
+     * @throws Exception
+     */
+    public void onSaveBtn(ActionEvent actionEvent) throws Exception {
+
+        // makes an moviemodel Object.
+        MovieModel movieModel = new MovieModel();
+
+        // get the current day.
+        Date today = Calendar.getInstance().getTime();
+
+        // creates the movie.
+        Movie movie = new Movie(lblMovieTitle.getText(), 0, Float.parseFloat(lblIMDBRating.getText()), lblUrlText.toString(), today.toString(), catDropDown.getSelectionModel().getSelectedItem().toString());
+        movie.setId(1);
+        if (movieModel.getMovies().size() != 0)
+        {
+            movie.setId(movieModel.getMovies().get(movieModel.getMovies().size() - 1).getId() + 1);
         }
 
-    public void onSaveBtn(ActionEvent actionEvent) throws SQLException {
-        MovieModel movieModel = new MovieModel();
-        Date today = Calendar.getInstance().getTime();
-        // will work when we made the change above.
-        Movie movie = new Movie(lblMovieTitle.getText(), 0,Float.parseFloat(lblIMDBRating.getText()), lblUrlText.toString(),today.toString(), catDropDown.getSelectionModel().getSelectedItem().toString());
-        movie.setId(movieModel.getMovies().get(movieModel.getMovies().size() - 1).getId() + 1);
         movieModel.createMovie(movie);
 
-         for(Category category : categoryModel.getCategories()) {
-             if (category.getTitle().equals(catDropDown.getSelectionModel().getSelectedItem().toString())) {
-                 catMovieModel.addMovieToCategory(movie, category);
-             }
-         }
 
+
+        // add the category to the movie.
+        for (Category category : categoryModel.getCategories()) {
+            if (category.getTitle().equals(catDropDown.getSelectionModel().getSelectedItem().toString())) {
+                catMovieModel.addMovieToCategory(movie, category);
+            }
+        }
+
+        // reference to maincontroller to replace the tableview with the new movie.
         MainController mainController = new ExamProject().getController();
         mainController.fillTableview();
 
-        closeStage();
-    }
-
-    public void onCloseBtn(ActionEvent actionEvent) {
-
+        //closes the stage
         closeStage();
     }
 
     /**
-     * closess the stage.
+     * closes the stage.
+     * @param actionEvent
      */
-    public void closeStage(){
+    public void onCloseBtn(ActionEvent actionEvent) {
+        closeStage();
+    }
+
+    /**
+     * closes the stage.
+     */
+    public void closeStage() {
         Stage stage = (Stage) anchorPane.getScene().getWindow();
         stage.close();
     }
 
+
+    /**
+     * initialize the drop box for categories. so all categories is displayed.
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        for(Category category : categoryModel.getCategories()) {
+        for (Category category : categoryModel.getCategories()) {
             catDropDown.getItems().add(category.getTitle());
         }
     }
