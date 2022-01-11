@@ -83,18 +83,13 @@ public class MovieController implements Initializable {
 
         // creates the movie.
         Movie movie = new Movie(lblMovieTitle.getText(), 0, Float.parseFloat(lblIMDBRating.getText()), lblUrlText.toString(), today.toString(), catDropDown.getSelectionModel().getSelectedItem().toString());
-        movie.setId(1);
-        if (movieModel.getMovies().size() != 0)
-        {
-            movie.setId(movieModel.getMovies().get(movieModel.getMovies().size() - 1).getId() + 1);
-        }
         movieModel.createMovie(movie);
 
 
         // add the category to the movie.
         for (Category category : categoryModel.getCategories()) {
             if (category.getTitle().equals(catDropDown.getSelectionModel().getSelectedItem().toString())) {
-                catMovieModel.addMovieToCategory(movie, category);
+                catMovieModel.addMovieToCategory(movieModel.getMovies().get(movieModel.getMovies().size()-1), category);
             }
         }
 

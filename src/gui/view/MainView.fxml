@@ -26,8 +26,9 @@
             <Button layoutX="259.0" layoutY="95.0" mnemonicParsing="false" onAction="#onRateBtn" prefHeight="26.0" prefWidth="90.0" text="Rate" AnchorPane.rightAnchor="16.0" />
             <Button layoutX="145.0" layoutY="467.0" mnemonicParsing="false" onAction="#onMovieConfigBtn" text="Movie Config" AnchorPane.bottomAnchor="17.399999999999977" AnchorPane.leftAnchor="145.0" />
             <Button layoutX="22.0" layoutY="467.0" mnemonicParsing="false" onAction="#onCategoryConfigBtn" text="Category Config" AnchorPane.bottomAnchor="17.4" AnchorPane.leftAnchor="22.0" />
-            <TextField layoutX="246.0" layoutY="14.0" prefWidth="114.0" />
-            <Button layoutX="386.0" layoutY="135.0" mnemonicParsing="false" onAction="#onAddCategory" text="Add Category" />
+            <TextField fx:id="searchMovie" layoutX="246.0" layoutY="14.0" prefWidth="114.0" />
+            <Button layoutX="386.0" layoutY="135.0" mnemonicParsing="false" onAction="#onAddCategory" text="Add Category" AnchorPane.rightAnchor="16.400000000000006" />
+            <Button layoutX="386.0" layoutY="172.0" mnemonicParsing="false" onAction="#onDeleteMovie" prefHeight="26.0" prefWidth="87.0" text="Delete Movie" />
          </children>
       </AnchorPane>
    </children>

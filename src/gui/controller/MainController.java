@@ -2,6 +2,8 @@ package gui.controller;
 
 import be.Category;
 import be.Movie;
+import com.sun.source.tree.WhileLoopTree;
+import dal.MovieSearcher;
 import gui.model.CatMovieModel;
 import gui.model.CategoryModel;
 import gui.model.MovieModel;
@@ -17,6 +19,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -29,12 +32,15 @@ public class MainController implements Initializable {
     public TableColumn<Movie, Float> tcUserRating;
     public TableColumn<Movie, String> tcTitle;
     public TableColumn<Movie, String> tcCategory;
+    public TextField searchMovie;
 
     // creating instances of classes.
     SceneSwapper sceneSwapper = new SceneSwapper();
     CategoryModel categoryModel = new CategoryModel();
     MovieModel movieModel = new MovieModel();
     CatMovieModel catMovieModel = new CatMovieModel();
+
+    ObservableList<Movie> allMovies = FXCollections.observableArrayList();
 
 
     /**
@@ -50,9 +56,19 @@ public class MainController implements Initializable {
             e.printStackTrace();
         }
         fillDropDownCategories();
+        MovieSearcher movieSearcher = new MovieSearcher();
 
+        // Search in all songs
+        searchMovie.textProperty().addListener((observableValue, oldValue, newValue) -> {
 
+            try {
+                tvMovies.getItems().clear();
+                tvMovies.setItems(movieSearcher.search(getMovies(), newValue));
 
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public void fillDropDownCategories(){
@@ -67,33 +83,29 @@ public class MainController implements Initializable {
      * fills the tableview with all the movie information.
      */
     public void fillTableview() throws SQLException {
-        ObservableList<Movie> movies = getMovies();
-
-        for(Movie movie : movies){
-            movie.removeCategories();
-            List<Category> categories = catMovieModel.getAllCategoriesFromOneMovie(movie);
-            for (Category category : categories){
-                movie.setCategories(category.getTitle());
-                System.out.println(movie.getCategories());
-            }
-        }
-
         tcTitle.setCellValueFactory(new PropertyValueFactory<Movie, String>("Title"));
         tcUserRating.setCellValueFactory(new PropertyValueFactory<Movie, Float>("personalRating"));
         tcIMDBRating.setCellValueFactory(new PropertyValueFactory<Movie, Float>("imdbRating"));
         tcCategory.setCellValueFactory(new PropertyValueFactory<Movie, String>("categories"));
 
-        tvMovies.setItems(movies);
+        tvMovies.setItems(getMovies());
     }
 
     /**
      * creates and return observablelist from list off all movies.
      * @return an observablelist of all movies.
      */
-    public ObservableList<Movie> getMovies(){
-        ObservableList<Movie> movies = FXCollections.observableArrayList();
-        movies.addAll(movieModel.getMovies());
-        return movies;
+    public ObservableList<Movie> getMovies() throws SQLException {
+        allMovies.clear();
+        allMovies.addAll(movieModel.getMovies());
+        for(Movie movie : allMovies){
+            movie.removeCategories();
+            List<Category> categories = catMovieModel.getAllCategoriesFromOneMovie(movie);
+            for (Category category : categories){
+                movie.setCategories(category.getTitle());
+            }
+        }
+        return allMovies;
     }
 
 
@@ -154,12 +166,20 @@ public class MainController implements Initializable {
      */
     public void onDeleteBtn(ActionEvent actionEvent) throws SQLException {
 
-        System.out.println(categoriesDropDown.getSelectionModel().getSelectedItem());
-        for(Category category : categoryModel.getCategories()){
-            if(category.getTitle().equals(categoriesDropDown.getSelectionModel().getSelectedItem())){
-                categoryModel.deleteCategory(category);
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION, "You sure you wanna do this you idiot");
+        a.showAndWait().filter(ButtonType.OK::equals).ifPresent(b -> {
+            for(Category category : categoryModel.getCategories()){
+                if(category.getTitle().equals(categoriesDropDown.getSelectionModel().getSelectedItem())){
+                    try {
+                        categoryModel.deleteCategory(category);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-        }
+        });
+        fillDropDownCategories();
+
         categoriesDropDown.getItems().remove(categoriesDropDown.getSelectionModel().getSelectedItem());
     }
 
@@ -172,5 +192,14 @@ public class MainController implements Initializable {
 
     public void onAddCategory(ActionEvent actionEvent) throws IOException {
         sceneSwapper.sceneSwitch(new Stage(), "AddCategoryConfig.fxml");
+    }
+
+    public void onDeleteMovie(ActionEvent actionEvent) throws SQLException {
+
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION, "You sure you wanna do this you idiot");
+        a.showAndWait().filter(ButtonType.OK::equals).ifPresent(b -> {
+            movieModel.deleteMovie(tvMovies.getSelectionModel().getSelectedItem());
+        });
+        fillTableview();
     }
 }
