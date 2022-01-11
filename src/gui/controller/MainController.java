@@ -2,6 +2,7 @@ package gui.controller;
 
 import be.Category;
 import be.Movie;
+import gui.model.CatMovieModel;
 import gui.model.CategoryModel;
 import gui.model.MovieModel;
 import gui.util.SceneSwapper;
@@ -16,6 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -32,6 +34,7 @@ public class MainController implements Initializable {
     SceneSwapper sceneSwapper = new SceneSwapper();
     CategoryModel categoryModel = new CategoryModel();
     MovieModel movieModel = new MovieModel();
+    CatMovieModel catMovieModel = new CatMovieModel();
 
 
     /**
@@ -41,10 +44,20 @@ public class MainController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        fillTableview();
+        try {
+            fillTableview();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        fillDropDownCategories();
 
 
+
+    }
+
+    public void fillDropDownCategories(){
         // initializing the Categories, could have been done on a better way who cares tbh. (just seems so hard to find out how)
+        categoriesDropDown.getItems().clear();
         for(Category category : categoryModel.getCategories()) {
             categoriesDropDown.getItems().add(category.getTitle());
         }
@@ -53,12 +66,24 @@ public class MainController implements Initializable {
     /**
      * fills the tableview with all the movie information.
      */
-    public void fillTableview(){
+    public void fillTableview() throws SQLException {
+        ObservableList<Movie> movies = getMovies();
+
+        for(Movie movie : movies){
+            movie.removeCategories();
+            List<Category> categories = catMovieModel.getAllCategoriesFromOneMovie(movie);
+            for (Category category : categories){
+                movie.setCategories(category.getTitle());
+                System.out.println(movie.getCategories());
+            }
+        }
+
         tcTitle.setCellValueFactory(new PropertyValueFactory<Movie, String>("Title"));
         tcUserRating.setCellValueFactory(new PropertyValueFactory<Movie, Float>("personalRating"));
         tcIMDBRating.setCellValueFactory(new PropertyValueFactory<Movie, Float>("imdbRating"));
-        tcCategory.setCellValueFactory(new PropertyValueFactory<Movie, String>("categories")); //TODO change this do Category when fixed SQL Statement.
-        tvMovies.setItems(getMovies());
+        tcCategory.setCellValueFactory(new PropertyValueFactory<Movie, String>("categories"));
+
+        tvMovies.setItems(movies);
     }
 
     /**
@@ -89,7 +114,7 @@ public class MainController implements Initializable {
     }
 
     /**
-     * opens a browser of the movie infomation.
+     * opens a browser of the movie information.
      * @param actionEvent
      */
     public void onInfoBtn(ActionEvent actionEvent) {
@@ -139,7 +164,6 @@ public class MainController implements Initializable {
     }
 
     /**
-     *
      * @return the selected movie object in our tableview.
      */
     public Movie getSelectedMovie(){

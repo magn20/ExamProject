@@ -25,4 +25,8 @@ public class CatMovieModel {
     public List<Movie> getMoviesFromCategory(int categoryId) throws SQLException {
         return catMovieManager.getMoviesFromCategory(categoryId);
     }
+
+    public List<Category> getAllCategoriesFromOneMovie(Movie movie) throws SQLException {
+        return catMovieManager.getAllCategoriesFromOneMovie(movie);
+    }
 }

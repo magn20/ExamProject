@@ -36,6 +36,9 @@ public class CatMovieManager {
     public List<Movie> getMoviesFromCategory(int categoryId) throws SQLException {
         return catMovieDAO.getMoviesFromCategory(categoryId);
     }
+    public List<Category> getAllCategoriesFromOneMovie(Movie movie) throws SQLException {
+        return catMovieDAO.getAllCategoriesForOneMovie(movie);
+    }
 
 
 }

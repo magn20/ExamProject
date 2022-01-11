@@ -88,9 +88,7 @@ public class MovieController implements Initializable {
         {
             movie.setId(movieModel.getMovies().get(movieModel.getMovies().size() - 1).getId() + 1);
         }
-
         movieModel.createMovie(movie);
-
 
 
         // add the category to the movie.

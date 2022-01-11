@@ -41,7 +41,10 @@ public class Movie {
     }
 
     public void setCategories(String categories) {
-        this.categories = categories;
+        this.categories = this.categories + categories;
+    }
+    public void removeCategories(){
+        this.categories = "";
     }
 
     public String getCategories() {

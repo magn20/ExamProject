@@ -83,4 +83,25 @@ public class CatMovieDAO {
         return moviesInCategory;
     }
 
+    public List<Category> getAllCategoriesForOneMovie(Movie movie) throws SQLException {
+        List<Category> categoriesInMovie = new ArrayList<>();
+
+
+        String sql = "SELECT title FROM Category INNER JOIN CatMovie ON CatMovie.Categoryid = category.id WHERE movieid =(?);"; //sql command
+        PreparedStatement preparedStatement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        preparedStatement.setInt(1, movie.getId());
+
+        //Extract data from DB
+        if(preparedStatement.execute()){
+            ResultSet resultSet = preparedStatement.getResultSet();
+            while(resultSet.next()){
+                String title = resultSet.getString("title");
+
+                categoriesInMovie.add(new Category(title));
+            }
+        }
+
+        return categoriesInMovie;
+    }
+
 }
