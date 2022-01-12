@@ -18,7 +18,7 @@ public class MovieSearcher implements iMovieSearcher {
         ObservableList<Movie> searchResult = FXCollections.observableArrayList();
 
         for (Movie movie : searchBase) {
-            if(compareToSongTitle(movie, query) || compareToSongArtist(movie, query))
+            if(compareToMovieTitle(movie, query) || compareToCategory(movie, query))
             {
                 searchResult.add(movie);
             }
@@ -35,7 +35,7 @@ public class MovieSearcher implements iMovieSearcher {
      */
 
 
-    public boolean compareToSongTitle(Movie movie, String query) {
+    public boolean compareToMovieTitle(Movie movie, String query) {
         return movie.getTitle().toLowerCase().contains(query.toLowerCase());
     }
 
@@ -46,7 +46,7 @@ public class MovieSearcher implements iMovieSearcher {
      * @param query
      * @return true if keyword match artist
      */
-    public boolean compareToSongArtist(Movie movie, String query) {
+    public boolean compareToCategory(Movie movie, String query) {
         return movie.getCategories().toLowerCase().contains(query.toLowerCase());
     }
 }
