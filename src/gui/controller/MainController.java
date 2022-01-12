@@ -75,9 +75,9 @@ public class MainController implements Initializable {
         for(Movie movie : allMovies){
             DateCheckker dateCheckker = new DateCheckker();
             if(dateCheckker.checkForMoreThan2Years(movie.getLastview(), today.toString())){
-                Alert a = new Alert(Alert.AlertType.CONFIRMATION, "you wamt to the delete this movie, thats more than two years old");
+                Alert a = new Alert(Alert.AlertType.CONFIRMATION, "do you want to the delete this movie, its been more than two years since you saw it");
                 a.setTitle(movie.getTitle());
-                a.setHeaderText("its been two years since you saw this " + movie.getTitle());
+                a.setHeaderText("its been two years since you saw " + movie.getTitle());
                 a.showAndWait().filter(ButtonType.OK::equals).ifPresent(b -> {
                     movieModel.deleteMovie(movie);
                 });
