@@ -55,7 +55,7 @@ public class MovieController implements Initializable {
      */
     public void onChooseBtn(ActionEvent actionEvent) {
         Stage stage = (Stage) anchorPane.getScene().getWindow(); // get stage.
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Movie files", "*.mp4", "*.wave")); //TODO CHANGE that <---
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Movie files", "*.mp4", "*.mpeg4"));
         file = fileChooser.showOpenDialog(stage); // assigns the chosen file to the file
         fileChooser.setInitialDirectory(file.getParentFile()); //sets the initial file when the fileChooser is opened to the last known directory
 
@@ -82,7 +82,7 @@ public class MovieController implements Initializable {
         Date today = Calendar.getInstance().getTime();
 
         // creates the movie.
-        Movie movie = new Movie(lblMovieTitle.getText(), 0, Float.parseFloat(lblIMDBRating.getText()), lblUrlText.toString(), today.toString(), catDropDown.getSelectionModel().getSelectedItem().toString());
+        Movie movie = new Movie(lblMovieTitle.getText(), 0, Float.parseFloat(lblIMDBRating.getText()), lblUrlText.getText(), today.toString(), catDropDown.getSelectionModel().getSelectedItem().toString());
         movieModel.createMovie(movie);
 
 

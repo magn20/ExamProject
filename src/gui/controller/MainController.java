@@ -2,7 +2,6 @@ package gui.controller;
 
 import be.Category;
 import be.Movie;
-import com.sun.source.tree.WhileLoopTree;
 import dal.MovieSearcher;
 import gui.model.CatMovieModel;
 import gui.model.CategoryModel;
@@ -19,9 +18,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class MainController implements Initializable {
     public TableView<Movie> tvMovies;
@@ -69,6 +66,32 @@ public class MainController implements Initializable {
                 e.printStackTrace();
             }
         });
+
+        // get the current day.
+        Date today = Calendar.getInstance().getTime();
+
+        for(Movie movie : allMovies){
+            String movieDates = movie.getLastview().substring(4, 10);
+            String todayDates = today.toString().substring(4, 10);
+            if(movieDates.equals(todayDates)){
+                movieDates = movie.getLastview().substring(movie.getLastview().length() - 4, movie.getLastview().length());
+                todayDates = today.toString().substring(today.toString().length() - 4, today.toString().length());
+                if(movieDates.equals(todayDates)){
+                    if(movie.getPersonalRating() < 6.0) {
+                        Alert a = new Alert(Alert.AlertType.CONFIRMATION, "A Movie is more than 2 years old, want to delete it");
+                        a.showAndWait().filter(ButtonType.OK::equals).ifPresent(b -> {
+                            movieModel.deleteMovie(movie);
+                            try {
+                                fillTableview();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                    }
+                }
+            }
+
+        }
     }
 
     public void fillDropDownCategories(){
@@ -87,7 +110,6 @@ public class MainController implements Initializable {
         tcUserRating.setCellValueFactory(new PropertyValueFactory<Movie, Float>("personalRating"));
         tcIMDBRating.setCellValueFactory(new PropertyValueFactory<Movie, Float>("imdbRating"));
         tcCategory.setCellValueFactory(new PropertyValueFactory<Movie, String>("categories"));
-
         tvMovies.setItems(getMovies());
     }
 
@@ -121,9 +143,21 @@ public class MainController implements Initializable {
      * opens a mediaplayer on users pc.
      * @param actionEvent
      */
-    public void onWatchBtn(ActionEvent actionEvent) {
+    public void onWatchBtn(ActionEvent actionEvent) throws IOException {
         //TODO add so it opens a mediaplayer
+
+        // get the current day.
+        Date today = Calendar.getInstance().getTime();
+        tvMovies.getSelectionModel().getSelectedItem().setLastview(today.toString());
+
+        String command = "C:\\Program Files\\Windows Media Player\\wmplayer.exe";
+        String arg = tvMovies.getSelectionModel().getSelectedItem().getFilelink();
+        //Building a process
+        ProcessBuilder builder = new ProcessBuilder(command, arg);
+        //Starting the process
+        builder.start();
     }
+
 
     /**
      * opens a browser of the movie information.
