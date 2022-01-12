@@ -6,6 +6,7 @@ import dal.MovieSearcher;
 import gui.model.CatMovieModel;
 import gui.model.CategoryModel;
 import gui.model.MovieModel;
+import gui.util.DateCheckker;
 import gui.util.SceneSwapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -70,27 +71,22 @@ public class MainController implements Initializable {
         // get the current day.
         Date today = Calendar.getInstance().getTime();
 
+
         for(Movie movie : allMovies){
-            String movieDates = movie.getLastview().substring(4, 10);
-            String todayDates = today.toString().substring(4, 10);
-            if(movieDates.equals(todayDates)){
-                movieDates = movie.getLastview().substring(movie.getLastview().length() - 4, movie.getLastview().length());
-                todayDates = today.toString().substring(today.toString().length() - 4, today.toString().length());
-                if(movieDates.equals(todayDates)){
-                    if(movie.getPersonalRating() < 6.0) {
-                        Alert a = new Alert(Alert.AlertType.CONFIRMATION, "A Movie is more than 2 years old, want to delete it");
-                        a.showAndWait().filter(ButtonType.OK::equals).ifPresent(b -> {
-                            movieModel.deleteMovie(movie);
-                            try {
-                                fillTableview();
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-                        });
-                    }
+            DateCheckker dateCheckker = new DateCheckker();
+            if(dateCheckker.checkForMoreThan2Years(movie.getLastview(), today.toString())){
+                Alert a = new Alert(Alert.AlertType.CONFIRMATION, "you wamt to the delete this movie, thats more than two years old");
+                a.setTitle(movie.getTitle());
+                a.setHeaderText("its been two years since you saw this " + movie.getTitle());
+                a.showAndWait().filter(ButtonType.OK::equals).ifPresent(b -> {
+                    movieModel.deleteMovie(movie);
+                });
+                try {
+                    fillTableview();
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             }
-
         }
     }
 
