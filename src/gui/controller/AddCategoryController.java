@@ -40,7 +40,9 @@ public class AddCategoryController implements Initializable {
                 catMovieModel.addMovieToCategory(mainController.tvMovies.getSelectionModel().getSelectedItem(), category);
             }
         }
+        mainController.getMovies();
         mainController.fillTableview();
+
         closeStage();
     }
 

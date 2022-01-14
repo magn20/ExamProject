@@ -259,6 +259,12 @@ public class MainController implements Initializable {
         a.showAndWait().filter(ButtonType.OK::equals).ifPresent(b -> {
             movieModel.deleteMovie(tvMovies.getSelectionModel().getSelectedItem());
         });
+        getMovies();
+        fillTableview();
+    }
+
+    public void onShowAllMovies(ActionEvent actionEvent) throws SQLException {
+        getMovies();
         fillTableview();
     }
 }

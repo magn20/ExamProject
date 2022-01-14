@@ -95,6 +95,7 @@ public class MovieController implements Initializable {
 
         // reference to maincontroller to replace the tableview with the new movie.
         MainController mainController = new ExamProject().getController();
+        mainController.getMovies();
         mainController.fillTableview();
 
         //closes the stage
