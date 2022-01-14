@@ -30,6 +30,7 @@ public class MainController implements Initializable {
     public TableColumn<Movie, Float> tcUserRating;
     public TableColumn<Movie, String> tcTitle;
     public TableColumn<Movie, String> tcCategory;
+    public TableColumn<Movie, String> lastView;
     public TextField searchMovie;
 
     // creating instances of classes.
@@ -37,24 +38,26 @@ public class MainController implements Initializable {
     CategoryModel categoryModel = new CategoryModel();
     MovieModel movieModel = new MovieModel();
     CatMovieModel catMovieModel = new CatMovieModel();
+    MovieSearcher movieSearcher = new MovieSearcher();
+
 
     ObservableList<Movie> allMovies = FXCollections.observableArrayList();
 
-
     /**
      * to initialize our stage so all the data is displayed.
+     *
      * @param location
      * @param resources
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+            getMovies();
             fillTableview();
+            fillDropDownCategories();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        fillDropDownCategories();
-        MovieSearcher movieSearcher = new MovieSearcher();
 
         // Search in all songs
         searchMovie.textProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -68,13 +71,13 @@ public class MainController implements Initializable {
             }
         });
 
+
         // get the current day.
         Date today = Calendar.getInstance().getTime();
 
-
-        for(Movie movie : allMovies){
+        for (Movie movie : allMovies) {
             DateCheckker dateCheckker = new DateCheckker();
-            if(dateCheckker.checkForMoreThan2Years(movie.getLastview(), today.toString())){
+            if (dateCheckker.checkForMoreThan2Years(movie.getLastview(), today.toString())) {
                 Alert a = new Alert(Alert.AlertType.CONFIRMATION, "do you want to the delete this movie, its been more than two years since you saw it");
                 a.setTitle(movie.getTitle());
                 a.setHeaderText("its been two years since you saw " + movie.getTitle());
@@ -86,14 +89,18 @@ public class MainController implements Initializable {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+                break;
             }
         }
     }
 
-    public void fillDropDownCategories(){
+    /**
+     * fills the comboBox with all categories
+     */
+    public void fillDropDownCategories() {
         // initializing the Categories, could have been done on a better way who cares tbh. (just seems so hard to find out how)
         categoriesDropDown.getItems().clear();
-        for(Category category : categoryModel.getCategories()) {
+        for (Category category : categoryModel.getCategories()) {
             categoriesDropDown.getItems().add(category.getTitle());
         }
     }
@@ -106,42 +113,59 @@ public class MainController implements Initializable {
         tcUserRating.setCellValueFactory(new PropertyValueFactory<Movie, Float>("personalRating"));
         tcIMDBRating.setCellValueFactory(new PropertyValueFactory<Movie, Float>("imdbRating"));
         tcCategory.setCellValueFactory(new PropertyValueFactory<Movie, String>("categories"));
-        tvMovies.setItems(getMovies());
+        lastView.setCellValueFactory(new PropertyValueFactory<Movie, String>("lastview"));
+        tvMovies.setItems(allMovies);
     }
 
     /**
      * creates and return observablelist from list off all movies.
+     *
      * @return an observablelist of all movies.
      */
     public ObservableList<Movie> getMovies() throws SQLException {
         allMovies.clear();
         allMovies.addAll(movieModel.getMovies());
-        for(Movie movie : allMovies){
-            movie.removeCategories();
-            List<Category> categories = catMovieModel.getAllCategoriesFromOneMovie(movie);
-            for (Category category : categories){
-                movie.setCategories(category.getTitle());
-            }
-        }
+        asignCategoriesIntoMovies();
         return allMovies;
     }
 
-
     /**
-     * the category that is selected. ()really not used.
-     * @param actionEvent
+     * asigns categories to all movies
+     * @throws SQLException
      */
-    public void onCategoriesBtn(ActionEvent actionEvent)  {
-     //TODO
+    public void asignCategoriesIntoMovies() throws SQLException {
+        for (Movie movie : allMovies) {
+            movie.removeCategories();
+            List<Category> categories = catMovieModel.getAllCategoriesFromOneMovie(movie);
+            for (Category category : categories) {
+                movie.setCategories(category.getTitle());
+            }
+        }
     }
 
     /**
+     * when a category is selected only shows movies from that category
+     * @param actionEvent
+     */
+    public void onCategoriesBtn(ActionEvent actionEvent) throws SQLException {
+        for (Category category : categoryModel.getCategories()) {
+            if (category.getTitle().equals(categoriesDropDown.getSelectionModel().getSelectedItem())) {
+                allMovies.clear();
+                allMovies.addAll(catMovieModel.getMoviesFromCategory(category.getId()));
+                break;
+            }
+        }
+        asignCategoriesIntoMovies();
+        fillTableview();
+    }
+
+
+    /**
      * opens a mediaplayer on users pc.
+     *
      * @param actionEvent
      */
     public void onWatchBtn(ActionEvent actionEvent) throws IOException {
-        //TODO add so it opens a mediaplayer
-
         // get the current day.
         Date today = Calendar.getInstance().getTime();
         tvMovies.getSelectionModel().getSelectedItem().setLastview(today.toString());
@@ -154,17 +178,9 @@ public class MainController implements Initializable {
         builder.start();
     }
 
-
-    /**
-     * opens a browser of the movie information.
-     * @param actionEvent
-     */
-    public void onInfoBtn(ActionEvent actionEvent) {
-        //TODO open browser for info for movie
-    }
-
     /**
      * switches to a rate selection scene.
+     *
      * @param actionEvent
      */
     public void onRateBtn(ActionEvent actionEvent) throws IOException {
@@ -173,6 +189,7 @@ public class MainController implements Initializable {
 
     /**
      * switches to category config scene
+     *
      * @param actionEvent
      * @throws IOException
      */
@@ -181,7 +198,8 @@ public class MainController implements Initializable {
     }
 
     /**
-     *  Switches to the movie config scene
+     * Switches to the movie config scene
+     *
      * @param actionEvent
      * @throws IOException
      */
@@ -190,7 +208,8 @@ public class MainController implements Initializable {
     }
 
     /**
-     *  Deletes the chosen category
+     * Deletes the chosen category
+     *
      * @param actionEvent
      * @throws IOException
      */
@@ -198,8 +217,8 @@ public class MainController implements Initializable {
 
         Alert a = new Alert(Alert.AlertType.CONFIRMATION, "You sure you wanna do this you idiot");
         a.showAndWait().filter(ButtonType.OK::equals).ifPresent(b -> {
-            for(Category category : categoryModel.getCategories()){
-                if(category.getTitle().equals(categoriesDropDown.getSelectionModel().getSelectedItem())){
+            for (Category category : categoryModel.getCategories()) {
+                if (category.getTitle().equals(categoriesDropDown.getSelectionModel().getSelectedItem())) {
                     try {
                         categoryModel.deleteCategory(category);
                     } catch (SQLException e) {
@@ -216,14 +235,24 @@ public class MainController implements Initializable {
     /**
      * @return the selected movie object in our tableview.
      */
-    public Movie getSelectedMovie(){
-       return tvMovies.getSelectionModel().getSelectedItem();
+    public Movie getSelectedMovie() {
+        return tvMovies.getSelectionModel().getSelectedItem();
     }
 
+    /**
+     * switches to the Categoryconfig scene
+     * @param actionEvent
+     * @throws IOException
+     */
     public void onAddCategory(ActionEvent actionEvent) throws IOException {
         sceneSwapper.sceneSwitch(new Stage(), "AddCategoryConfig.fxml");
     }
 
+    /**
+     * deletes a movie from the system both in gui and db.
+     * @param actionEvent
+     * @throws SQLException
+     */
     public void onDeleteMovie(ActionEvent actionEvent) throws SQLException {
 
         Alert a = new Alert(Alert.AlertType.CONFIRMATION, "You sure you wanna do this you idiot");

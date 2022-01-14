@@ -7,28 +7,28 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="530.0" prefWidth="512.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.MainController">
+<AnchorPane prefHeight="530.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.MainController">
    <children>
-      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="510.0" prefWidth="646.0" style="-fx-background-color: pink;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="510.0" prefWidth="800.0" style="-fx-background-color: pink;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
             <Button layoutX="145.0" layoutY="14.0" mnemonicParsing="false" onAction="#onDeleteBtn" text="Delete" />
             <ComboBox fx:id="categoriesDropDown" layoutX="22.0" layoutY="14.0" onAction="#onCategoriesBtn" prefHeight="26.0" prefWidth="114.0" promptText="Categories" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="14.0" />
             <TableView fx:id="tvMovies" layoutX="14.0" layoutY="55.0" prefHeight="432.0" prefWidth="222.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="128.6" AnchorPane.topAnchor="55.0">
               <columns>
-                <TableColumn fx:id="tcTitle" prefWidth="125.5999755859375" text="Title" />
-                  <TableColumn fx:id="tcCategory" prefWidth="92.800048828125" text="Category" />
-                <TableColumn fx:id="tcUserRating" prefWidth="76.79998779296875" text="User ★" />
-                  <TableColumn fx:id="tcIMDBRating" prefWidth="52.60001220703123" text="IMDB ★" />
+                <TableColumn fx:id="tcTitle" prefWidth="149.60003662109375" text="Title" />
+                  <TableColumn fx:id="tcCategory" prefWidth="173.5999755859375" text="Category" />
+                <TableColumn fx:id="tcUserRating" prefWidth="49.60003662109375" text="User ★" />
+                  <TableColumn fx:id="tcIMDBRating" prefWidth="59.99993896484375" text="IMDB ★" />
+                  <TableColumn fx:id="lastView" prefWidth="204.800048828125" text="Last Seen" />
               </columns>
             </TableView>
             <Button layoutX="259.0" layoutY="55.0" mnemonicParsing="false" onAction="#onWatchBtn" prefHeight="26.0" prefWidth="87.0" text="Watch" AnchorPane.rightAnchor="19.0" />
-            <Button layoutX="259.0" layoutY="14.0" mnemonicParsing="false" onAction="#onInfoBtn" prefHeight="26.0" prefWidth="87.0" text="info" AnchorPane.rightAnchor="19.0" />
             <Button layoutX="259.0" layoutY="95.0" mnemonicParsing="false" onAction="#onRateBtn" prefHeight="26.0" prefWidth="90.0" text="Rate" AnchorPane.rightAnchor="16.0" />
             <Button layoutX="145.0" layoutY="467.0" mnemonicParsing="false" onAction="#onMovieConfigBtn" text="Movie Config" AnchorPane.bottomAnchor="17.399999999999977" AnchorPane.leftAnchor="145.0" />
             <Button layoutX="22.0" layoutY="467.0" mnemonicParsing="false" onAction="#onCategoryConfigBtn" text="Category Config" AnchorPane.bottomAnchor="17.4" AnchorPane.leftAnchor="22.0" />
-            <TextField fx:id="searchMovie" layoutX="246.0" layoutY="14.0" prefWidth="114.0" />
+            <TextField fx:id="searchMovie" layoutX="536.0" layoutY="14.0" prefWidth="114.0" AnchorPane.rightAnchor="129.6" />
             <Button layoutX="386.0" layoutY="135.0" mnemonicParsing="false" onAction="#onAddCategory" text="Add Category" AnchorPane.rightAnchor="16.400000000000006" />
-            <Button layoutX="386.0" layoutY="172.0" mnemonicParsing="false" onAction="#onDeleteMovie" prefHeight="26.0" prefWidth="87.0" text="Delete Movie" />
+            <Button layoutX="386.0" layoutY="172.0" mnemonicParsing="false" onAction="#onDeleteMovie" prefHeight="26.0" prefWidth="87.0" text="Delete Movie" AnchorPane.rightAnchor="18.799999999999997" />
          </children>
       </AnchorPane>
    </children>
