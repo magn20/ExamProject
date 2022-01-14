@@ -27,14 +27,6 @@ public class Movie {
         this.lastview = lastview;
     }
 
-    public Movie(String title, Float personalRating, Float imdbRating, String filelink, String lastview) {
-        this.title = title;
-        this.personalRating = personalRating;
-        this.imdbRating = imdbRating;
-        this.filelink = filelink;
-        this.lastview = lastview;
-    }
-
     public int getId(){
         return id;
     }
