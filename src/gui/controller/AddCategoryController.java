@@ -24,6 +24,11 @@ public class AddCategoryController implements Initializable {
     private CategoryModel categoryModel = new CategoryModel();
     private CatMovieModel catMovieModel = new CatMovieModel();
 
+    /**
+     *
+     * @param actionEvent
+     * @throws SQLException
+     */
     public void onSaveBtn(ActionEvent actionEvent) throws SQLException {
 
         // reference to maincontroller to replace the tableview with the new movie.
@@ -36,11 +41,13 @@ public class AddCategoryController implements Initializable {
             }
         }
         mainController.fillTableview();
-
         closeStage();
-
     }
 
+    /**
+     * clsoses the stage
+     * @param actionEvent when a action is performed on the button.
+     */
     public void onCloseBtn(ActionEvent actionEvent) {
         closeStage();
     }
@@ -52,6 +59,11 @@ public class AddCategoryController implements Initializable {
             stage.close();
         }
 
+    /**
+     * sets the items in the combobox.
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 

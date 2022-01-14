@@ -16,11 +16,9 @@ public class CategoryController {
                 closeStage();
         }
 
+
         public void onSaveBtn(ActionEvent actionEvent) {
                 categoryModel.addCategory(categoryName.getText());
-
-
-
                 // reference to maincontroller to replace the tableview with the new movie.
                 MainController mainController = new ExamProject().getController();
                 mainController.fillDropDownCategories();

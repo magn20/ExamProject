@@ -2,8 +2,6 @@ package dal;
 import be.Movie;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class MovieSearcher implements iMovieSearcher {
@@ -24,6 +22,7 @@ public class MovieSearcher implements iMovieSearcher {
             }
         }
         return searchResult;
+
     }
 
     /**
