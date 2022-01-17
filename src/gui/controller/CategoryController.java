@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import static be.DisplayMessage.displayError;
+
 public class CategoryController {
         public TextField categoryName;
         public AnchorPane anchorPane;
@@ -18,13 +20,18 @@ public class CategoryController {
 
 
         public void onSaveBtn(ActionEvent actionEvent) {
-                categoryModel.addCategory(categoryName.getText());
-                // reference to maincontroller to replace the tableview with the new movie.
-                MainController mainController = new ExamProject().getController();
-                mainController.fillDropDownCategories();
+                try {
+                        categoryModel.addCategory(categoryName.getText());
+                        // reference to maincontroller to replace the tableview with the new movie.
+                        MainController mainController = new ExamProject().getController();
+                        mainController.fillDropDownCategories();
+
+                        closeStage();
+                } catch (Exception e){
+                        displayError(e);
+                }
 
 
-                closeStage();
         }
 
         /**

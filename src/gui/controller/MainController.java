@@ -21,6 +21,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
 
+import static be.DisplayMessage.displayMessage;
+
 public class MainController implements Initializable {
     public TableView<Movie> tvMovies;
     public ComboBox<String> categoriesDropDown;
@@ -166,18 +168,23 @@ public class MainController implements Initializable {
      * @param actionEvent
      */
     public void onWatchBtn(ActionEvent actionEvent) throws IOException {
-        // get the current day.
-        Date today = Calendar.getInstance().getTime();
-        tvMovies.getSelectionModel().getSelectedItem().setLastview(today.toString());
 
-        String command = "C:\\Program Files\\Windows Media Player\\wmplayer.exe";
-        String arg = tvMovies.getSelectionModel().getSelectedItem().getFilelink();
-        //Building a process
-        ProcessBuilder builder = new ProcessBuilder(command, arg);
-        //Starting the process
-        builder.start();
+        if (tvMovies.getSelectionModel().getSelectedItem() == null) {
+            displayMessage("Nothing is selected");
+        } else {
+
+            // get the current day.
+            Date today = Calendar.getInstance().getTime();
+            tvMovies.getSelectionModel().getSelectedItem().setLastview(today.toString());
+
+            String command = "C:\\Program Files\\Windows Media Player\\wmplayer.exe";
+            String arg = tvMovies.getSelectionModel().getSelectedItem().getFilelink();
+            //Building a process
+            ProcessBuilder builder = new ProcessBuilder(command, arg);
+            //Starting the process
+            builder.start();
+        }
     }
-
     /**
      * switches to a rate selection scene.
      *
@@ -215,18 +222,24 @@ public class MainController implements Initializable {
      */
     public void onDeleteBtn(ActionEvent actionEvent) throws SQLException {
 
-        Alert a = new Alert(Alert.AlertType.CONFIRMATION, "You sure you wanna do this you idiot");
-        a.showAndWait().filter(ButtonType.OK::equals).ifPresent(b -> {
-            for (Category category : categoryModel.getCategories()) {
-                if (category.getTitle().equals(categoriesDropDown.getSelectionModel().getSelectedItem())) {
-                    try {
-                        categoryModel.deleteCategory(category);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
+        if(tvMovies.getSelectionModel().getSelectedItem() == null){
+            displayMessage("Nothing is selected");
+        }
+        else {
+
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION, "You sure you wanna do this you idiot");
+            a.showAndWait().filter(ButtonType.OK::equals).ifPresent(b -> {
+                for (Category category : categoryModel.getCategories()) {
+                    if (category.getTitle().equals(categoriesDropDown.getSelectionModel().getSelectedItem())) {
+                        try {
+                            categoryModel.deleteCategory(category);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
         fillDropDownCategories();
 
         categoriesDropDown.getItems().remove(categoriesDropDown.getSelectionModel().getSelectedItem());

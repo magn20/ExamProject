@@ -14,17 +14,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
+
+import static be.DisplayMessage.displayError;
 
 public class MovieController implements Initializable {
     public TextField lblMovieTitle;
@@ -75,31 +73,38 @@ public class MovieController implements Initializable {
      */
     public void onSaveBtn(ActionEvent actionEvent) throws Exception {
 
-        // makes an moviemodel Object.
-        MovieModel movieModel = new MovieModel();
+        try {
 
-        // get the current day.
-        Date today = Calendar.getInstance().getTime();
+            // makes an moviemodel Object.
+            MovieModel movieModel = new MovieModel();
 
-        // creates the movie.
-        Movie movie = new Movie(lblMovieTitle.getText(), 0, Float.parseFloat(lblIMDBRating.getText()), lblUrlText.getText(), today.toString(), catDropDown.getSelectionModel().getSelectedItem().toString());
-        movieModel.createMovie(movie);
+            // get the current day.
+            Date today = Calendar.getInstance().getTime();
+
+            // creates the movie.
+            Movie movie = new Movie(lblMovieTitle.getText(), 0, Float.parseFloat(lblIMDBRating.getText()), lblUrlText.getText(), today.toString(), catDropDown.getSelectionModel().getSelectedItem().toString());
+            movieModel.createMovie(movie);
 
 
-        // add the category to the movie.
-        for (Category category : categoryModel.getCategories()) {
-            if (category.getTitle().equals(catDropDown.getSelectionModel().getSelectedItem().toString())) {
-                catMovieModel.addMovieToCategory(movieModel.getMovies().get(movieModel.getMovies().size()-1), category);
+            // add the category to the movie.
+            for (Category category : categoryModel.getCategories()) {
+                if (category.getTitle().equals(catDropDown.getSelectionModel().getSelectedItem().toString())) {
+                    catMovieModel.addMovieToCategory(movieModel.getMovies().get(movieModel.getMovies().size()-1), category);
+                }
             }
+
+            // reference to maincontroller to replace the tableview with the new movie.
+            MainController mainController = new ExamProject().getController();
+            mainController.getMovies();
+            mainController.fillTableview();
+
+            //closes the stage
+            closeStage();
+        } catch (Exception e){
+            displayError(e);
         }
 
-        // reference to maincontroller to replace the tableview with the new movie.
-        MainController mainController = new ExamProject().getController();
-        mainController.getMovies();
-        mainController.fillTableview();
 
-        //closes the stage
-        closeStage();
     }
 
     /**

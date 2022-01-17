@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static be.DisplayMessage.displayError;
+
 public class UserRatingController implements Initializable {
     public ComboBox dropDownRating;
     public AnchorPane anchorPane;
@@ -25,12 +27,18 @@ public class UserRatingController implements Initializable {
     }
 
     public void onSaveBtn(ActionEvent actionEvent) throws Exception {
-        MainController mainController = new ExamProject().getController();
-        mainController.getSelectedMovie().setPersonalRating(Float.parseFloat(dropDownRating.getSelectionModel().getSelectedItem().toString()));
-        movieModel.updateMovie(mainController.getSelectedMovie());
-        mainController.getMovies();
-        mainController.fillTableview();
-        closeStage();
+
+        try {
+            MainController mainController = new ExamProject().getController();
+            mainController.getSelectedMovie().setPersonalRating(Float.parseFloat(dropDownRating.getSelectionModel().getSelectedItem().toString()));
+            movieModel.updateMovie(mainController.getSelectedMovie());
+            mainController.getMovies();
+            mainController.fillTableview();
+            closeStage();
+        } catch (Exception e){
+            displayError(e);
+        }
+
     }
 
     public void onCloseBtn(ActionEvent actionEvent) {

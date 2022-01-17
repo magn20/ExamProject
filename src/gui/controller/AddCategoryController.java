@@ -1,7 +1,5 @@
 package gui.controller;
-
 import be.Category;
-import be.DisplayMessage;
 import gui.ExamProject;
 import gui.model.CatMovieModel;
 import gui.model.CategoryModel;
@@ -11,10 +9,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import static be.DisplayMessage.displayError;
 
 public class AddCategoryController implements Initializable {
 
@@ -47,7 +45,7 @@ public class AddCategoryController implements Initializable {
 
             closeStage();
         } catch (Exception e){
-
+            displayError(e);
         }
         }
 
