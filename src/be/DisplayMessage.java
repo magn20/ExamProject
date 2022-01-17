@@ -73,7 +73,7 @@ public class DisplayMessage {
      */
     private static void addIicon(Alert alert){
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-        Image image = new Image("/gui/Images/MyTunesLogo.png");
+        Image image = new Image("/gui/Images/icon.png");
         stage.getIcons().add(image);
     }
 }
