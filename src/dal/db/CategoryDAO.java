@@ -1,7 +1,6 @@
 package dal.db;
 
 import be.Category;
-import dal.DisplayMessage;
 import dal.Interfaces.ICategory;
 
 import java.sql.*;
@@ -10,7 +9,6 @@ import java.util.List;
 
 public class CategoryDAO implements ICategory {
     private Connection con;
-    private DisplayMessage displayMessage = new DisplayMessage();
 
     public CategoryDAO (Connection connection) {
         con = connection;
@@ -51,7 +49,8 @@ public class CategoryDAO implements ICategory {
             insertedId = rs.getInt(1);
         } catch (Exception e) {
             e.printStackTrace();
-            
+
+
         }
         Category category = new Category(insertedId, title);
         return category;

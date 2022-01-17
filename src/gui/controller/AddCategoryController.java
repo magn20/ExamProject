@@ -1,6 +1,7 @@
 package gui.controller;
 
 import be.Category;
+import be.DisplayMessage;
 import gui.ExamProject;
 import gui.model.CatMovieModel;
 import gui.model.CategoryModel;
@@ -31,20 +32,26 @@ public class AddCategoryController implements Initializable {
      */
     public void onSaveBtn(ActionEvent actionEvent) throws SQLException {
 
-        // reference to maincontroller to replace the tableview with the new movie.
-        MainController mainController = new ExamProject().getController();
+        try {
+            // reference to maincontroller to replace the tableview with the new movie.
+            MainController mainController = new ExamProject().getController();
 
-        // add the category to the movie.
-        for (Category category : categoryModel.getCategories()) {
-            if (category.getTitle().equals(comboBoxCategories.getSelectionModel().getSelectedItem().toString())) {
-                catMovieModel.addMovieToCategory(mainController.tvMovies.getSelectionModel().getSelectedItem(), category);
+            // add the category to the movie.
+            for (Category category : categoryModel.getCategories()) {
+                if (category.getTitle().equals(comboBoxCategories.getSelectionModel().getSelectedItem().toString())) {
+                    catMovieModel.addMovieToCategory(mainController.tvMovies.getSelectionModel().getSelectedItem(), category);
+                }
             }
-        }
-        mainController.getMovies();
-        mainController.fillTableview();
+            mainController.getMovies();
+            mainController.fillTableview();
 
-        closeStage();
-    }
+            closeStage();
+        } catch (Exception e){
+
+        }
+        }
+
+
 
     /**
      * clsoses the stage
