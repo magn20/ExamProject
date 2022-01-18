@@ -11,7 +11,7 @@
                 <Button layoutX="59.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-radius: 10; -fx-background-color: pink;" text="User Rating Config" />
                 <Button layoutX="138.0" layoutY="108.0" mnemonicParsing="false" onAction="#onSaveBtn" prefWidth="80.0" style="-fx-background-radius: 10;" text="Save" />
                 <Button fx:id="btnClose" layoutX="14.0" layoutY="108.0" mnemonicParsing="false" onAction="#onCloseBtn" style="-fx-background-radius: 10;" text="Close" />
-            <ComboBox fx:id="dropDownRating" layoutX="72.0" layoutY="63.0" onAction="#onDropAction" prefHeight="26.0" prefWidth="92.0" promptText="Rate me" style="-fx-background-radius: 10;" />
+            <ComboBox fx:id="dropDownRating" layoutX="72.0" layoutY="63.0" prefHeight="26.0" prefWidth="92.0" promptText="Rate me" style="-fx-background-radius: 10;" />
             </children></AnchorPane>
     </children>
 </AnchorPane>
