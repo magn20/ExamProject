@@ -81,6 +81,11 @@ public class CatMovieDAO {
         return moviesInCategory;
     }
 
+    /**
+     * gets all categories one movie has
+     * @param movie the movie that we looking for categories for
+     * @return list of caregories for one movie
+     */
     public List<Category> getAllCategoriesForOneMovie(Movie movie) throws SQLException {
         List<Category> categoriesInMovie = new ArrayList<>();
 

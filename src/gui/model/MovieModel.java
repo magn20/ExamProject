@@ -18,7 +18,6 @@ MovieManager movieManager;
 
     public Movie createMovie(Movie movie) {
         return movieManager.createMovie(movie);
-
     }
 
     public void updateMovie(Movie movie) throws Exception {

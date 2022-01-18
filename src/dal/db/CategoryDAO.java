@@ -14,6 +14,10 @@ public class CategoryDAO implements ICategory {
         con = connection;
     }
 
+    /**
+     *  gets a list of all categories.
+     * @return a list of categories
+     */
     public List<Category> getCategories() {
         List<Category> allCategories = new ArrayList<>();
         try {

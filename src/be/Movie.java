@@ -41,14 +41,12 @@ public class Movie {
     }
 
     public void setCategories(String categories) {
-
         if(this.categories.equals("")){
             this.categories = categories;
         }
         else{
             this.categories = this.categories + ", " + categories;
         }
-
     }
     public void removeCategories(){
         this.categories = "";

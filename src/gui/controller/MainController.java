@@ -33,13 +33,24 @@ public class MainController implements Initializable {
     public TextField searchMovie;
 
     // creating instances of classes.
-    SceneSwapper sceneSwapper = new SceneSwapper();
-    CategoryModel categoryModel = new CategoryModel();
-    MovieModel movieModel = new MovieModel();
-    CatMovieModel catMovieModel = new CatMovieModel();
-    MovieSearcher movieSearcher = new MovieSearcher();
+    SceneSwapper sceneSwapper;
+    CategoryModel categoryModel;
+    MovieModel movieModel;
+    CatMovieModel catMovieModel;
+    MovieSearcher movieSearcher;
 
     ObservableList<Movie> allMovies = FXCollections.observableArrayList();
+
+    public MainController(){
+
+        // creating instances of classes.
+        sceneSwapper = new SceneSwapper();
+        categoryModel = new CategoryModel();
+        movieModel = new MovieModel();
+        catMovieModel = new CatMovieModel();
+        movieSearcher = new MovieSearcher();
+    }
+
 
     /**
      * to initialize our stage so all the data is displayed.
@@ -61,6 +72,10 @@ public class MainController implements Initializable {
 
     }
 
+    /**
+     * useing a Listener to check if the value has been have changed in the text field by user.
+     * search after movies with the values
+     */
     public void searchForMovies(){
         // Search in all Movies
         searchMovie.textProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -74,6 +89,9 @@ public class MainController implements Initializable {
         });
     }
 
+    /**
+     * gets a date for when a movie was last seen and checks if its been more than 2 years.
+     */
     public void dateCheckker(){
         // get the current day.
         Date today = Calendar.getInstance().getTime();
