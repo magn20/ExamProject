@@ -1,5 +1,4 @@
 package gui.controller;
-
 import be.Category;
 import be.Movie;
 import dal.MovieSearcher;
@@ -15,12 +14,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
-
 import static be.DisplayMessage.displayMessage;
 
 public class MainController implements Initializable {
@@ -42,7 +39,6 @@ public class MainController implements Initializable {
     CatMovieModel catMovieModel = new CatMovieModel();
     MovieSearcher movieSearcher = new MovieSearcher();
 
-
     ObservableList<Movie> allMovies = FXCollections.observableArrayList();
 
     /**
@@ -60,10 +56,14 @@ public class MainController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        searchForMovies();
+        dateCheckker();
 
-        // Search in all songs
+    }
+
+    public void searchForMovies(){
+        // Search in all Movies
         searchMovie.textProperty().addListener((observableValue, oldValue, newValue) -> {
-
             try {
                 tvMovies.getItems().clear();
                 tvMovies.setItems(movieSearcher.search(getMovies(), newValue));
@@ -72,8 +72,9 @@ public class MainController implements Initializable {
                 e.printStackTrace();
             }
         });
+    }
 
-
+    public void dateCheckker(){
         // get the current day.
         Date today = Calendar.getInstance().getTime();
 
@@ -95,7 +96,6 @@ public class MainController implements Initializable {
             }
         }
     }
-
     /**
      * fills the comboBox with all categories
      */
@@ -133,6 +133,7 @@ public class MainController implements Initializable {
 
     /**
      * asigns categories to all movies
+     *
      * @throws SQLException
      */
     public void asignCategoriesIntoMovies() throws SQLException {
@@ -147,6 +148,7 @@ public class MainController implements Initializable {
 
     /**
      * when a category is selected only shows movies from that category
+     *
      * @param actionEvent
      */
     public void onCategoriesBtn(ActionEvent actionEvent) throws SQLException {
@@ -185,6 +187,7 @@ public class MainController implements Initializable {
             builder.start();
         }
     }
+
     /**
      * switches to a rate selection scene.
      *
@@ -222,10 +225,9 @@ public class MainController implements Initializable {
      */
     public void onDeleteBtn(ActionEvent actionEvent) throws SQLException {
 
-        if(tvMovies.getSelectionModel().getSelectedItem() == null){
+        if (tvMovies.getSelectionModel().getSelectedItem() == null) {
             displayMessage("Nothing is selected");
-        }
-        else {
+        } else {
 
             Alert a = new Alert(Alert.AlertType.CONFIRMATION, "You sure you wanna do this you idiot");
             a.showAndWait().filter(ButtonType.OK::equals).ifPresent(b -> {
@@ -254,6 +256,7 @@ public class MainController implements Initializable {
 
     /**
      * switches to the Categoryconfig scene
+     *
      * @param actionEvent
      * @throws IOException
      */
@@ -263,6 +266,7 @@ public class MainController implements Initializable {
 
     /**
      * deletes a movie from the system both in gui and db.
+     *
      * @param actionEvent
      * @throws SQLException
      */

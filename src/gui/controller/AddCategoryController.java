@@ -7,7 +7,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.net.URL;
 import java.sql.SQLException;
@@ -17,39 +16,66 @@ import static be.DisplayMessage.displayError;
 public class AddCategoryController implements Initializable {
 
     @FXML
-    private AnchorPane anchorPane;
-    @FXML
     private ComboBox comboBoxCategories;
-    private CategoryModel categoryModel = new CategoryModel();
-    private CatMovieModel catMovieModel = new CatMovieModel();
+    private CategoryModel categoryModel;
+    private CatMovieModel catMovieModel;
+    private MainController mainController;
+
+
+
+    public AddCategoryController(){
+        categoryModel = new CategoryModel();
+        catMovieModel = new CatMovieModel();
+        mainController = new ExamProject().getController();
+    }
 
     /**
-     *
+     * sets the items in the combobox.
+     * @param location
+     * @param resources
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        // fills up the dropdown with all categories.
+        comboBoxCategories.getItems().clear();
+        for(Category category : categoryModel.getCategories()) {
+            comboBoxCategories.getItems().add(category.getTitle());
+        }
+
+    }
+
+
+    /**
+     *  Gives a Movie a Category.
      * @param actionEvent
      * @throws SQLException
      */
     public void onSaveBtn(ActionEvent actionEvent) throws SQLException {
 
         try {
-            // reference to maincontroller to replace the tableview with the new movie.
-            MainController mainController = new ExamProject().getController();
-
             // add the category to the movie.
             for (Category category : categoryModel.getCategories()) {
                 if (category.getTitle().equals(comboBoxCategories.getSelectionModel().getSelectedItem().toString())) {
                     catMovieModel.addMovieToCategory(mainController.tvMovies.getSelectionModel().getSelectedItem(), category);
                 }
             }
-            mainController.getMovies();
-            mainController.fillTableview();
-
+            updateMainController();
             closeStage();
+
         } catch (Exception e){
             displayError(e);
-        }
+            }
         }
 
-
+    /**
+     * calls MainController Java class to get all the movies and reupdate the values in the tableview.
+     * @throws SQLException
+     */
+    public void updateMainController() throws SQLException {
+            mainController.getMovies();
+            mainController.fillTableview();
+        }
 
     /**
      * clsoses the stage
@@ -66,19 +92,5 @@ public class AddCategoryController implements Initializable {
             stage.close();
         }
 
-    /**
-     * sets the items in the combobox.
-     * @param location
-     * @param resources
-     */
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-        comboBoxCategories.getItems().clear();
-        for(Category category : categoryModel.getCategories()) {
-            comboBoxCategories.getItems().add(category.getTitle());
-        }
-
-    }
 }
 
