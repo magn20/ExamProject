@@ -23,7 +23,7 @@ public class CatMovieDAO {
      * @param category the category object.
      * @throws SQLException
      */
-    //TODO TEST IF THIS WORKS OR GET IT TO WORK.
+
     public void removeMovieFromCategory(Movie movie, Category category) throws SQLException {
 
             String sql = "DELETE FROM CatMovie WHERE movieId = (?) AND categoryId = (?);";
@@ -55,7 +55,6 @@ public class CatMovieDAO {
      * @return
      * @throws SQLException
      */
-            //TODO MAKE METOD RETURN THE OTHER WAY AROUND SO YOU GIVE IT A MOVIE ID AND GET ALL THE CATEGORIES ID THIS MOVIE ID IS LINKED WITH.
     public List<Movie> getMoviesFromCategory(int categoryId) throws SQLException {
         List<Movie> moviesInCategory = new ArrayList<>();
 
